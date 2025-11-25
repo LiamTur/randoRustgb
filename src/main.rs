@@ -4,7 +4,7 @@ use std::fs;
 fn main() {
     let args: Vec<String> = env::args().collect();
 
-    let config = parser_function(&args);
+    let config = CLI::new(&args);
 
 
     println!("wow you gave me the string {}, and the path {}",config.query, config.path);
@@ -19,9 +19,16 @@ struct CLI {
     path: String,
 }
 
-fn parser_function(args: &[String]) -> CLI{
-   let query = args[1].clone();
-   let path = args[2].clone();
+impl CLI {
+    fn new(args: &[String]) -> CLI {
+        if args.len() < 3 {
+            panic!("WHERE IS MY ARGUMENTS!");
+        }
+        let query = args[1].clone();
+        let path = args[2].clone();
 
-    CLI { query, path }
+     CLI { query, path }
+    }
 }
+
+
